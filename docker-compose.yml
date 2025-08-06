@@ -1,0 +1,37 @@
+# docker-compose.yml for Dukascopy API WebSocket
+version: '3.8' # Specify the Docker Compose file format version
+
+services:
+  dukascopy-api:
+    image: ismailfer/dukascopy-api:latest # The Docker image to use
+    container_name: dukascopy-api-websocket # A friendly name for your container
+    restart: unless-stopped # Always restart the container unless it's explicitly stopped
+
+    # Port mappings: HOST_PORT:CONTAINER_PORT
+    # Exposes ports 7080 and 7081 from the container to the host
+    # ports:
+    #   - "7080:7080"
+    #   - "7081:7081"
+
+    # Overrides the default ENTRYPOINT defined in the Dockerfile
+    # In your docker run command, you explicitly set 'java' as the entrypoint.
+    entrypoint: java
+
+    # Defines the command and arguments that will be executed by the entrypoint.
+    # These are the arguments that followed the image name in your docker run command.
+    command:
+      - -jar
+      - dukascopy-api-websocket.war
+      # It's highly recommended to use environment variables for credentials
+      # instead of hardcoding them directly in the command or compose file.
+      # See the "Best Practice: Handling Credentials" section below.
+      - --dukascopy.credential-username=DEMO2QHKGY # Hardcoded for direct conversion
+      - --dukascopy.credential-password=QHKGY    # Hardcoded for direct conversion
+
+    # Define a network for your service (optional, but good practice)
+    networks:
+      - dukascopy_api_network
+
+networks:
+  dukascopy_api_network:
+    driver: bridge # Creates a default bridge network

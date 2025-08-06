@@ -1,6 +1,6 @@
-FROM openjdk:17-jdk-alpine
-EXPOSE 7080
-EXPOSE 7081
-ARG JAR_FILE=target/dukascopy-api-websocket-1.0.war
-ADD ${JAR_FILE} dukascopy-api-websocket.war
-ENTRYPOINT ["java","-jar","dukascopy-api-websocket.war","--dukascopy.credential-username=username", "--dukascopy.credential-password=password"]
+FROM ismailfer/dukascopy-api:latest
+
+ENV USER=username
+ENV PWD=password
+
+ENTRYPOINT ["java","-jar","dukascopy-api-websocket-1.0.war","--dukascopy.credential-username=$USER", "--dukascopy.credential-password=$PWD"]
