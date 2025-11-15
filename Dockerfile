@@ -5,7 +5,8 @@
 
 # ENTRYPOINT ["java","-jar","dukascopy-api-websocket-1.0.war","--dukascopy.credential-username=$USER", "--dukascopy.credential-password=$PWD"]
 
-FROM amazoncorretto:25-alpine-jdk
+#FROM amazoncorretto:25-alpine-jdk
+FROM openjdk:26-oracle
 EXPOSE 7080
 EXPOSE 7081
 
